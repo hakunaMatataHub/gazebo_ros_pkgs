@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 2.8.3)
 project(gazebo_plugins)
 
-option(ENABLE_DISPLAY_TESTS "Enable the building of tests that requires a display" OFF)
+option(ENABLE_DISPLAY_TESTS "Enable the building of tests that requires a display" ON)
 
 find_package(catkin REQUIRED COMPONENTS 
   gazebo_dev
@@ -380,6 +380,8 @@ install(DIRECTORY test
 # Tests
 # These need to be run with -j1 flag because gazebo can't be run
 # in parallel.
+
+message("Before")
 if (CATKIN_ENABLE_TESTING)
   find_package(rostest REQUIRED)
 
@@ -390,7 +392,10 @@ if (CATKIN_ENABLE_TESTING)
 
   add_rostest(test/range/range_plugin.test)
 
+  
+
   if (ENABLE_DISPLAY_TESTS)
+    message("after")
     add_rostest_gtest(depth_camera-test
                       test/camera/depth_camera.test
                       test/camera/depth_camera.cpp)
